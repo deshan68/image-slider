@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ImageSlider = ({ images }) => {
   const [imageIndex, setImageIndex] = useState(0);
@@ -19,6 +19,20 @@ const ImageSlider = ({ images }) => {
       return prev - 1;
     });
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setImageIndex((prev) => {
+        if (prev == images.length - 1) {
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [imageIndex]);
+
   return (
     <div
       style={{
